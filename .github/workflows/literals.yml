@@ -3,6 +3,7 @@ on: push
 jobs:
   print:
     runs-on: ubuntu-latest
+    # string以外の型は${{}}で括らないと文字列として認識されてしまうの注意
     steps:
       - run: printenv | grep 'LITERAL_'
         env:
