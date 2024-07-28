@@ -19,3 +19,7 @@ jobs:
           JOIN_FUNC: ${{ join(github.event.*.html_url, ', ') }}
   dump:
     runs-on: ubuntu-latest
+    steps:
+      - run: echo "$CONTEXT"
+        env:
+          CONTEXT: ${{ toJson(github) }}
