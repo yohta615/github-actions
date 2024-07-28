@@ -8,4 +8,4 @@ jobs:
     env:
       ACTOR: ${{ github.actor }}
     steps:
-      - run: echo "{$ACTOR}"
+      - run: echo "$ACTOR"
