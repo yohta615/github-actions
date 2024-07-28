@@ -3,5 +3,9 @@ on: push
 jobs:
   print:
     runs-on: ubuntu-latest
+    # コンテキストを直接シェルコマンドへ埋め込むのはアンチパターン
+    # 環境変数経由でコンテキストを渡してクォートするのがおすすめ
+    env:
+      ACTOR: ${{ github.actor }}
     steps:
-      - run: echo "${{ github.actor }}"
+      - run: echo "${ACTOR}"
