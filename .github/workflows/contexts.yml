@@ -5,9 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     # コンテキストを直接シェルコマンドへ埋め込むのはアンチパターン
     # 環境変数経由でコンテキストを渡してクォートするのがおすすめ
+    # PASSWORDはSecretを登録済み
     env:
       ACTOR: ${{ github.actor }}
     steps:
       - run: echo "$ACTOR"
       - run: echo "$PASSWORD"
-      - run: echo "${PASSWORD:0:1} ${PASSWORD#?}"
