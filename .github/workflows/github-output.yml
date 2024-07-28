@@ -11,6 +11,8 @@ jobs:
 
   share:
     runs-on: ubuntu-latest
+    # ステップを跨いで値を共有する方法
+    # idとキーバリュー形式の変数を指定することで参照先を特定
     steps:
       - id: source
         run: echo "result=Hello" >> "$GITHUB_OUTPUT"

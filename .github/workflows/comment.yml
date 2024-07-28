@@ -1,0 +1,18 @@
+name: Comment
+on: pull_request
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    # GITHUB_TOKENの権限を指定
+    # プルリクの書き込み許可とソースコードの読み込み許可
+    # permissionsを定義していない場合、ソースコードの読み込みは暗黙的に許可される
+    # ただし、パブリックリポジトリではcontentsの権限に関わらずソースコードの参照が可能
+    permissions:
+      pull-requests: write
+      contents: read
+    # GITHUB_TOKENは特別な変数であるため、secretsへ事前登録する必要はない
+    steps:
+      - uses: actions/checkout@v4
+      - run: gh pr comment "$GITHUB_HEAD_REF" --body "Hello, $GITHUB_ACTOR"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
