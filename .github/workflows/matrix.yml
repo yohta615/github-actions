@@ -1,0 +1,44 @@
+name: Matrix
+on: workflow_dispatch
+jobs:
+  # 複数のOSで同じジョブを実行したい場合はマトリックスを使用
+  print:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - run: echo "$RUNNER_OS"
+        shell: bash
+
+  # パターン1：ランナー「ubuntu-latest」、Node.jsバージョン「18」
+  # パターン2：ランナー「ubuntu-latest」、Node.jsバージョン「20」
+  # パターン3：ランナー「macos-latest」、Node.jsバージョン「18」
+  # パターン4：ランナー「macos-latest」、Node.jsバージョン「20」
+  multi-print:
+    strategy:
+      matrix:                                 # 多次元マトリックスの定義
+        os: [ubuntu-latest, macos-latest]     # osプロパティの定義
+        version: [18, 20]                     # versionプロパティの定義
+    runs-on: ${{ matrix.os }}                 # osプロパティの参照
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }} # versionプロパティの参照
+      - run: echo "${RUNNER_OS}" && node --version
+
+  # 掛け算でジョブを増やしたくない場合の定義
+  manual-print:
+    strategy:
+      matrix:                  # 多次元マトリックスの定義
+        include:               # 組み合わせ条件を手動で列挙
+          - os: ubuntu-latest  # パターン1
+            version: 20
+          - os: macos-latest   # パターン2
+            version: 18
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.version }}
+      - run: echo "${RUNNER_OS}" && node --version
