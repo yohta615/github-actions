@@ -15,5 +15,5 @@ jobs:
       USERNAME: ${{ vars.USERNAME }}            # Environment variablesの参照
       PASSWORD: ${{ secrets.PASSWORD }}         # Environment secretsの参照
     steps:
-      - run: echo "$USERNAME"
+      - run: echo "${USERNAME}"
       - run: echo "${PASSWORD:0:1} ${PASSWORD#?}"
