@@ -15,7 +15,7 @@ jobs:
     # idとキーバリュー形式の変数を指定することで参照先を特定
     steps:
       - id: source
-        run: echo "result=Hello" >> "$GITHUB_OUTPUT"
+        run: echo "result=Hello" >> "${GITHUB_OUTPUT}"
       - env:
           RESULT: ${{ steps.source.outputs.result }}
         run: echo "${RESULT}"

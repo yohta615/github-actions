@@ -1,5 +1,5 @@
 name: Functions
-on: push
+on: workflow_dispatch
 jobs:
   compare:
     runs-on: ubuntu-latest

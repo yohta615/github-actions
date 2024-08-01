@@ -7,6 +7,7 @@ on:
         default: test
         required: false
         description: Environment name
+# 同名のものがある場合はスコープが狭いほうを優先する。
 jobs:
   print:
     runs-on: ubuntu-latest
