@@ -12,7 +12,6 @@ outputs:                                     # アクションの出力(呼び�
     value: ${{ steps.current.outputs.date }}
     description: ダンプ日時
 # ワークフロー構文と違いメタデータ構文(このファイル)ではshellを省略できない
-# 省略するとエラーになる
 # トリガーによって中身が変わるgithub.eventプロパティへアクセスするのは避けたほうが無難
 runs:
   using: composite                           # アクションの実装方式
