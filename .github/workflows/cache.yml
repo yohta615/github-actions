@@ -3,6 +3,11 @@ on: workflow_dispatch
 jobs:
   cache:
     runs-on: ubuntu-latest
+    # リストアキーとはキャッシュミス時のリストアキーを複数指定する
+    # パッケージマネージャーとの併用で威力を発揮するらしい
+    # 1. keyキーで定義したキャッシュキーと、厳密に一致するキャッシュを探す
+    # 2. リストアキーの定義順に、プレフィックスが一致するキャッシュを探す
+    # キャッシュは保存と復元を両方行うが個別に定義もできる
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4                         # キャッシュの復元と保存
