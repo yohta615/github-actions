@@ -13,6 +13,9 @@ outputs:                                     # アクションの出力(呼び�
     description: ダンプ日時
 # ワークフロー構文と違いメタデータ構文(このファイル)ではshellを省略できない
 # トリガーによって中身が変わるgithub.eventプロパティへアクセスするのは避けたほうが無難
+# また、Github Actionsでshellを呼ぶ場合、ローカル環境で実行権限を付与しておく必要がある
+# macOS: chmod +x script.sh
+# Windows OS: git update-index --chmod=+x script.sh
 runs:
   using: composite                           # アクションの実装方式
   steps:                                     # アクションのメインロジック
