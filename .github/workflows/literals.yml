@@ -1,5 +1,5 @@
 name: Literals
-on: push
+on: workflow_dispatch
 jobs:
   print:
     runs-on: ubuntu-latest
@@ -7,7 +7,7 @@ jobs:
     steps:
       - run: printenv | grep 'LITERAL_'
         env:
-          LITERAL_NULL: ${{ null }}
+          LITERAL_NULL: null
           LITERAL_BOOLEAN: ${{ true }}
           LITERAL_NUMBER: ${{ 1234 }}
           LITERAL_STRING: ${{ 'Hello' }}

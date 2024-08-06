@@ -1,5 +1,5 @@
 name: Contexts
-on: push
+on: workflow_dispatch
 jobs:
   print:
     runs-on: ubuntu-latest
@@ -9,5 +9,5 @@ jobs:
     env:
       ACTOR: ${{ github.actor }}
     steps:
-      - run: echo "$ACTOR"
-      - run: echo "$PASSWORD"
+      - run: echo "${ACTOR}"
+      - run: echo "${PASSWORD}"
