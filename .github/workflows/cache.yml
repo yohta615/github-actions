@@ -1,0 +1,23 @@
+name: Cache
+on: workflow_dispatch
+jobs:
+  cache:
+    runs-on: ubuntu-latest
+    # リストアキーとはキャッシュミス時のリストアキーを複数指定する
+    # パッケージマネージャーとの併用で威力を発揮するらしい
+    # 1. keyキーで定義したキャッシュキーと、厳密に一致するキャッシュを探す
+    # 2. リストアキーの定義順に、プレフィックスが一致するキャッシュを探す
+    # キャッシュは保存と復元を両方行うが個別に定義もできる
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4                         # キャッシュの復元と保存
+        with:
+          key: test-${{ runner.os }}-${{ github.sha }} # キャッシュキー
+          path: ${{ github.workspace }}/dummy          # キャッシュ対象のパス
+          restore-keys: |                              # リストアキー
+            test-${{ runner.os }}-
+      - run: |
+          if [[ -f "${GITHUB_WORKSPACE}/dummy" ]]; then exit 0; fi
+          dd if=/dev/urandom of="${GITHUB_WORKSPACE}/dummy" bs=1M count=10
+          sleep 30
+      - run: ls -lh "${GITHUB_WORKSPACE}/dummy"
