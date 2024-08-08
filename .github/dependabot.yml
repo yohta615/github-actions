@@ -1,0 +1,8 @@
+version: 2
+# directoryはリポジトリのルートディレクトリが起点になるが、GitHub Actionsのみ固定で「/」と指定。
+# package.jsonやGemfile、Dockerfileなどが該当
+updates:
+  - package-ecosystem: github-actions # パッケージエコシステム
+    directory: /                      # パッケージマニフェストの配置先ディレクトリ
+    schedule:                         # バージョンアップスケジュール
+      interval: daily
