@@ -1,4 +1,6 @@
 version: 2
+# Dependabotが起動したワークフローは、GITHUB_TOKENを除いて通常のSecretsへアクセスできないので注意
+# Dependabot専用のSecretsを参照すること、また、通常のSecretsとDependabot secretsは同じ名前がおすすめ
 # directoryはリポジトリのルートディレクトリが起点になるが、GitHub Actionsのみ固定で「/」と指定。
 # package.jsonやGemfile、Dockerfileなどが該当
 updates:

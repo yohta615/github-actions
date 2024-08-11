@@ -9,6 +9,15 @@ jobs:
       pull-requests: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # GitHub CLIのクレデンシャル
+    # --autoにすることで他のジョブを含むステータスチェックが全て成功状態になったタイミングで自動的にマージをしてくれる
+    # さらにブランチプロテクションで自分以外の承認を必須としている場合のバイパスとしてあらかじめ承認処理を実行する
+    # この時、リポジトリの「Allow auto-merge」と
+    # 「Allow GitHub Actions to create and approve pull request」にチェックを入れる必要がある
     steps:
       - uses: actions/checkout@v4
-      - run: gh pr merge "${GITHUB_HEAD_REF}" --merge # GitHub CLIでマージ
+      - id: meta                           # 依存関係のメタデータを取得
+        uses: dependabot/fetch-metadata@v2 # 条件分岐でパッチバージョンかチェック
+      - if: ${{ steps.meta.outputs.update-type == 'version-update:semver-patch' }}
+        run: |
+          gh pr review "${GITHUB_HEAD_REF}" --approve
+          gh pr merge "${GITHUB_HEAD_REF}" --merge --auto
