@@ -1,0 +1,18 @@
+version: 2
+# Dependabotが起動したワークフローは、GITHUB_TOKENを除いて通常のSecretsへアクセスできないので注意
+# Dependabot専用のSecretsを参照すること、また、通常のSecretsとDependabot secretsは同じ名前がおすすめ
+# directoryはリポジトリのルートディレクトリが起点になるが、GitHub Actionsのみ固定で「/」と指定。
+# package.jsonやGemfile、Dockerfileなどが該当
+updates:
+  - package-ecosystem: github-actions # パッケージエコシステム
+    directory: /                      # パッケージマニフェストの配置先ディレクトリ
+    schedule:                         # バージョンアップスケジュール
+      interval: daily
+    ignore:                                      # バージョンアップの除外設定
+      - dependency-name: actions/upload-artifact # 除外する依存関係の名前
+        versions:                                # 除外対象のバージョン
+          - 4.3.0
+          - 4.3.1
+      - dependency-name: 'actions/*'             # アスタリスクは任意文字列にマッチ
+        update-types:                            # 除外するバージョンアップの種類
+          - version-update:semver-major
