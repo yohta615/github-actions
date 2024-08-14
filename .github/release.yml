@@ -1,3 +1,4 @@
+# 複数のカテゴリのラベルを使用すると一番上のが優先される？
 changelog:
   categories:            # リリースノートのカテゴリ設定
     - title: Enhancement # リリースノートへ「Enhancement」というカテゴリを作成する
